@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit - Web Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --deep-blue: #0a192f;
+            --youtube-red: #FF0000;
+            --facebook-blue: #1877F2;
+            --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            --linkedin-blue: #0A66C2;
+            --chatgpt-green: #10A37F;
+            --twitter-blue: #1DA1F2;
+            --classroom-green: #25A366;
+            --classroom-yellow: #F5B400;
+            --whatsapp-green: #25D366;
+            --meet-blue: #00897B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--deep-blue);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            margin: 20px 0 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #64f0ff, #0077ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0 40px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(100, 240, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            cursor: pointer;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Button specific styles */
+        .btn-youtube { background-color: var(--youtube-red); }
+        .btn-facebook { background-color: var(--facebook-blue); }
+        .btn-instagram { background: var(--instagram-gradient); }
+        .btn-linkedin { background-color: var(--linkedin-blue); }
+        .btn-chatgpt { background-color: var(--chatgpt-green); }
+        .btn-twitter { background-color: var(--twitter-blue); }
+        .btn-whatsapp { background-color: var(--whatsapp-green); }
+        .btn-meet { background-color: var(--meet-blue); }
+
+        .btn-google {
+            background-color: white;
+            color: #333;
+        }
+
+        .btn-google i {
+            background: conic-gradient(
+                #4285F4 0deg 90deg,
+                #EA4335 90deg 180deg,
+                #FBBC05 180deg 270deg,
+                #34A853 270deg 360deg
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .btn-classroom {
+            background: linear-gradient(135deg, var(--classroom-green) 0%, var(--classroom-yellow) 100%);
+        }
+
+        .footer-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .buttons-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .buttons-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-info {
+                position: static;
+                margin-top: 20px;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .buttons-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Orbit</h1>
+        <p>Your gateway to the web</p>
+    </div>
+
+    <div class="search-container">
+        <form id="search-form">
+            <input type="text" class="search-bar" placeholder="Search with Google..." id="search-input" autocomplete="off">
+            <i class="fas fa-search search-icon" id="search-button"></i>
+        </form>
+    </div>
+
+    <div class="buttons-container">
+        <a href="https://www.youtube.com" class="btn btn-youtube" target="_blank">
+            <i class="fab fa-youtube"></i>
+            YouTube
+        </a>
+        
+        <a href="https://www.facebook.com" class="btn btn-facebook" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+        </a>
+        
+        <a href="https://www.instagram.com" class="btn btn-instagram" target="_blank">
+            <i class="fab fa-instagram"></i>
+            Instagram
+        </a>
+        
+        <a href="https://www.linkedin.com" class="btn btn-linkedin" target="_blank">
+            <i class="fab fa-linkedin-in"></i>
+            LinkedIn
+        </a>
+        
+        <a href="https://chat.openai.com" class="btn btn-chatgpt" target="_blank">
+            <i class="fas fa-robot"></i>
+            ChatGPT
+        </a>
+        
+        <a href="https://www.google.com" class="btn btn-google" target="_blank">
+            <i class="fab fa-google"></i>
+            Google
+        </a>
+        
+        <a href="https://twitter.com" class="btn btn-twitter" target="_blank">
+            <i class="fab fa-twitter"></i>
+            Twitter
+        </a>
+        
+        <a href="https://classroom.google.com" class="btn btn-classroom" target="_blank">
+            <i class="fas fa-chalkboard-teacher"></i>
+            Classroom
+        </a>
+        
+        <a href="https://meet.google.com" class="btn btn-meet" target="_blank">
+            <i class="fas fa-video"></i>
+            Google Meet
+        </a>
+        
+        <a href="https://web.whatsapp.com" class="btn btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            WhatsApp
+        </a>
+    </div>
+
+    <div class="footer-info">
+        Name: Habib<br>
+        Section: 4E<br>
+        ID: 1381
+    </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            performSearch();
+        });
+
+        document.getElementById('search-button').addEventListener('click', function() {
+            performSearch();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) {
+                // Try Google first, fallback to Bing if Google is blocked
+                try {
+                    window.open(https://www.google.com/search?q=${encodeURIComponent(query)}, '_blank');
+                } catch {
+                    window.open(https://www.bing.com/search?q=${encodeURIComponent(query)}, '_blank');
+                }
+            }
+        }
+
+        // Focus search bar on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('search-input').focus();
+        });
+    </script>
+</body>
+</html>
